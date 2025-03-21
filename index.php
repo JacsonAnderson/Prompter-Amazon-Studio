@@ -6,7 +6,10 @@
       <label for="delay-input">Tiempo (segundos) entre transiciones:</label>
       <input type="number" id="delay-input" value="3" min="1">
     </div>
-    <button id="start-btn" class="start-btn" title="Comenzar el Prompter">&#9658;</button>
+    <button id="start-btn" class="start-btn" title="Comenzar el Prompter">
+        <span class="icon">&#9658;</span>
+    </button>
+
   </div>
   <!-- Overlay del prompter con 3 slots para los textos -->
   <div id="prompter-overlay">
