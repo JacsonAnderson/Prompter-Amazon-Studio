@@ -1,7 +1,7 @@
 <?php include('header.php'); ?>
 <div id="content-wrap">
   <div id="input-container" class="container">
-    <textarea id="script-text" placeholder="Coloque seu roteiro / guion aqui..."></textarea>
+    <textarea id="script-text" placeholder="Coloque seu roteiro aqui..."></textarea>
     <div id="timer-config">
       <label for="delay-input">Tempo (segundos) entre transições:</label>
       <input type="number" id="delay-input" value="3" min="1">
