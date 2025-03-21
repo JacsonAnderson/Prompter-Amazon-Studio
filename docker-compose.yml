@@ -1,0 +1,6 @@
+version: '3'
+services:
+  prompter:
+    build: .
+    ports:
+      - "4747:80"
