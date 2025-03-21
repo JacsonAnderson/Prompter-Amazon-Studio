@@ -6,7 +6,7 @@
       <label for="delay-input">Tempo (segundos) entre transições:</label>
       <input type="number" id="delay-input" value="3" min="1">
     </div>
-    <button id="start-btn" class="start-btn" title="Comenzar el Prompter">
+    <button id="start-btn" class="start-btn" title="Começar o Teleprompter">
       <span class="icon">&#9658;</span>
     </button>
   </div>
