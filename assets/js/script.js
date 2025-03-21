@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentIndex = 0;
     let displayDelay = 3000; // Tempo de exibição em ms (valor padrão)
     const transitionDuration = 1000; // Duração da animação em ms
+    let paused = false;
+    let transitionTimeout;
   
     const startBtn = document.getElementById("start-btn");
     const inputContainer = document.getElementById("input-container");
@@ -69,6 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // - O slot central (currElem) se move para o topo (15%) e faz fade out.
     // - O slot inferior (nextElem) se move para o centro (50%) e faz fade in.
     function animateTransition() {
+      if (paused) return; // Se estiver pausado, não faz nada.
+  
       // Configura transições para currElem e nextElem
       currElem.style.transition = `top ${transitionDuration}ms ease, font-size ${transitionDuration}ms ease, opacity ${transitionDuration}ms ease`;
       nextElem.style.transition = `top ${transitionDuration}ms ease, font-size ${transitionDuration}ms ease, opacity ${transitionDuration}ms ease`;
@@ -83,13 +87,11 @@ document.addEventListener("DOMContentLoaded", function () {
       nextElem.style.fontSize = "2em";
       nextElem.style.opacity = "1";
   
-      // Após a animação, atualiza os slots
-      setTimeout(() => {
+      transitionTimeout = setTimeout(() => {
         currentIndex++;
         updateSlots();
-        // Se houver mais slides, agenda a próxima transição
-        if (currentIndex < slides.length - 1) {
-          setTimeout(animateTransition, displayDelay);
+        if (currentIndex < slides.length - 1 && !paused) {
+          transitionTimeout = setTimeout(animateTransition, displayDelay);
         }
       }, transitionDuration);
     }
@@ -108,8 +110,48 @@ document.addEventListener("DOMContentLoaded", function () {
       updateSlots();
   
       if (slides.length > 1) {
-        setTimeout(animateTransition, displayDelay);
+        transitionTimeout = setTimeout(animateTransition, displayDelay);
       }
     });
+  
+    // Expor a API global "Prompter" para controle externo
+    window.Prompter = {
+      pause: function() {
+        paused = true;
+        clearTimeout(transitionTimeout);
+      },
+      resume: function() {
+        if (!paused) return;
+        paused = false;
+        if (currentIndex < slides.length - 1) {
+          transitionTimeout = setTimeout(animateTransition, displayDelay);
+        }
+      },
+      advance: function() {
+        clearTimeout(transitionTimeout);
+        if (currentIndex < slides.length - 1) {
+          currentIndex++;
+          updateSlots();
+        }
+        // Reinicia o contador automático após a ação
+        if (!paused && currentIndex < slides.length - 1) {
+          transitionTimeout = setTimeout(animateTransition, displayDelay);
+        }
+      },
+      regress: function() {
+        clearTimeout(transitionTimeout);
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateSlots();
+        }
+        // Reinicia o contador automático após a ação
+        if (!paused && currentIndex < slides.length - 1) {
+          transitionTimeout = setTimeout(animateTransition, displayDelay);
+        }
+      },
+      getPaused: function() {
+        return paused;
+      }
+    };
   });
   
