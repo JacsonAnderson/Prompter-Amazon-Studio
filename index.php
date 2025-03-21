@@ -3,7 +3,7 @@
   <div id="input-container" class="container">
     <textarea id="script-text" placeholder="Coloque seu roteiro / guion aqui..."></textarea>
     <div id="timer-config">
-      <label for="delay-input">Tiempo (segundos) entre transiciones:</label>
+      <label for="delay-input">Tempo (segundos) entre transições:</label>
       <input type="number" id="delay-input" value="3" min="1">
     </div>
     <button id="start-btn" class="start-btn" title="Comenzar el Prompter">
