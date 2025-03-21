@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const scriptText = document.getElementById("script-text");
     const delayInput = document.getElementById("delay-input");
     const prompterOverlay = document.getElementById("prompter-overlay");
+    const closeBtn = document.getElementById("close-btn");
   
     const prevElem = document.getElementById("prev-text");
     const currElem = document.getElementById("curr-text");
@@ -112,6 +113,15 @@ document.addEventListener("DOMContentLoaded", function () {
       if (slides.length > 1) {
         transitionTimeout = setTimeout(animateTransition, displayDelay);
       }
+    });
+  
+    // Botão de "X" para voltar ao modo de edição
+    closeBtn.addEventListener("click", function () {
+      // Para qualquer transição em andamento e reinicia o estado
+      clearTimeout(transitionTimeout);
+      paused = false;
+      prompterOverlay.style.display = "none";
+      inputContainer.style.display = "block";
     });
   
     // Expor a API global "Prompter" para controle externo

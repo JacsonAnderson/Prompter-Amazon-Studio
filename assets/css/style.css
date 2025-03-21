@@ -157,3 +157,25 @@ html, body {
     font-size: 0.9em;
   }
   
+
+  /* Botão de fechamento no overlay */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #444;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    cursor: pointer;
+    z-index: 110; /* Acima do overlay */
+    transition: background-color 0.3s ease;
+  }
+  
+  .close-btn:hover {
+    background-color: #555;
+  }
+  
